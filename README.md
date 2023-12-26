@@ -47,13 +47,3 @@ If you find any issues or have suggestions for improvement, feel free to open an
 
 This Sudoku Encryption Library is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
----
-
-In a real-world scenario, you may want to include additional sections such as:
-
-- **Installation via Package Manager:** If you decide to distribute the library as a package.
-- **Documentation Link:** If you have more extensive documentation, consider providing a link to it.
-- **Acknowledgments:** Mention any contributors, libraries, or resources you'd like to acknowledge.
-- **API Reference:** If your library is more complex, consider providing an API reference.
-
-This example provides a basic structure that you can expand based on the complexity and requirements of your library.
