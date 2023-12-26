@@ -1,23 +1,46 @@
-import math
+/*EALGO*/
+
 import random
-import string
 
+def generate_sudoku_grid():
+    base = 3
+    side = base * base
+    grid = [[(base * (r % base) + r // base + c) % side + 1 for c in range(side)] for r in range(side)]
+    return grid
 
+def apply_permutations(grid):
+    # Random row and column permutations
+    random.shuffle(grid)
+    transposed = [list(row) for row in zip(*grid)]
+    random.shuffle(transposed)
+    return transposed
 
-numbers = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []}
+def encrypt(plaintext, key):
+    encrypted_text = ""
+    for char in plaintext:
+        ascii_val = ord(char)
+        row = (ascii_val // 10) % 9
+        col = (ascii_val % 10) % 9
+        encrypted_text += str(key[row][col])
 
-upper = {'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': [], 'G': [], 'H': [], 'I': [], 'J': [], 'K': [], 'L': [], 'M': [], 'N': [], 'O': [], 'P': [], 'Q': [], 'R': [], 'S': [], 'T': [], 'U': [], 'V': [], 'W': [], 'X': [], "Y": [], 'Z': []}
+    return encrypted_text
 
-lower = {'a': [], 'b': [], 'c': [], 'd': [], 'e': [], 'f': [], 'g': [], 'h': [], 'i': [], 'j': [], 'k': [], 'l': [], 'm': [], 'n': [], 'o': [], 'p': [], 'q': [], 'r': [], 's': [], 't': [], 'u': [], 'v': [], 'w': [], 'x': [], 'y': [], 'z': []}
+def decrypt(encrypted_text, key):
+    decrypted_text = ""
+    for digit in encrypted_text:
+        row, col = divmod(int(digit) - 1, 9)
+        ascii_val = row * 10 + col
+        decrypted_text += chr(ascii_val)
 
-special = {'!': [], '@': [], '#': [], '$': [], '%': [], '^': [], '&': [], '*': [], '(': [], ')': [], '-': [], '_': [], '=': [], '+': [], '{': [], '}': [], '[': [], ']': [], ':': [], ';': [], '<': [], '>': [], ',': [], '.': [], '?': []}
+    return decrypted_text
 
+# Example usage:
+plaintext = "HELLO"
+sudoku_key = generate_sudoku_grid()
+permuted_key = apply_permutations(sudoku_key)
 
-for item in special:
-    special[item] = (str(random.choice(string.ascii_letters + string.digits)))
+encrypted_text = encrypt(plaintext, permuted_key)
+print("Encrypted:", encrypted_text)
 
-
-print(special)
-
-
-
+decrypted_text = decrypt(encrypted_text, permuted_key)
+print("Decrypted:", decrypted_text)
